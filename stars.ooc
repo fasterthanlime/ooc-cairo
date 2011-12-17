@@ -33,7 +33,7 @@ main: func (argc: Int, argv: String*) {
 		cr setSourceRGB(
 			(rand() % 255) / 255.0 as Double,
 			(rand() % 255) / 255.0 as Double,
-			(rand() % 255) / 255.0 as Double,
+			(rand() % 255) / 255.0 as Double
 		)
 		
 		cr drawStar(
@@ -41,7 +41,7 @@ main: func (argc: Int, argv: String*) {
 			rand() % h,
 			(rand() % 16) + 8,
 			rand() % 120,
-			(rand() % 50 + 50) * 0.01,
+			(rand() % 50 + 50) * 0.01
 		)
 	}
 
