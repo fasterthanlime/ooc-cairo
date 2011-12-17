@@ -25,9 +25,11 @@ HintStyle: cover from cairo_hint_style_t
 HintMetrics: cover from cairo_hint_metrics_t
 Format: cover from cairo_format_t
 
-UserDataKey: cover from cairo_user_data_key_t* {
+UserDataKeyStruct: cover from cairo_user_data_key_t { }
+
+UserDataKey: cover from UserDataKeyStruct* {
     new: static func -> This {
-        gc_malloc(sizeof(cairo_user_data_key_t)) as UserDataKey
+        gc_malloc(UserDataKeyStruct size) as UserDataKey
     }
 }
 

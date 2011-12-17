@@ -1,0 +1,4 @@
+.*.swp
+gtk-example
+*_tmp
+.libs

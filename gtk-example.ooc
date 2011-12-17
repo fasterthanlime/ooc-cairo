@@ -17,21 +17,15 @@ repaint: func (cr: Context) {
 	cr stroke()
 }
 
-onExpose: func (widget: Widget, event, userData: Pointer) -> Bool {
-	/* expose event is sent when the widget (or parts of it) needs to be redrawn.
-	   we repaint everything then.
-	 */
-	cr := GdkContext new(widget getWindow())
-	repaint(cr)
-	cr destroy()
-	return true
-}
-
 main: func {
 	win := Window new("Hai.")
 	win setUSize(400, 200) .connect("delete_event", exit)
 	win setAppPaintable(true)
-	win connect("expose-event", onExpose as Func)
+	win connect("expose-event", ||
+            cr := GdkContext new(win getWindow())
+            repaint(cr)
+            cr destroy()
+        )
 	win showAll()
 
 	Gtk main()
