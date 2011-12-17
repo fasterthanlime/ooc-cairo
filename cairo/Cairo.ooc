@@ -9,7 +9,15 @@ Status: cover from cairo_status_t
 Content: cover from cairo_content_t
 SurfaceType: cover from cairo_surface_type_t
 Operator: cover from cairo_operator_t
+
 Antialias: cover from cairo_antialias_t
+CairoAntialias: enum from Antialias {
+    DEFAULT,
+    NONE,
+    GRAY,
+    SUBPIXEL
+}
+
 SubPixelOrder: cover from cairo_subpixel_order_t
 FillRule: cover from cairo_fill_rule_t
 LineCap: cover from cairo_line_cap_t
@@ -23,7 +31,16 @@ Filter: cover from cairo_filter_t
 FontType: cover from cairo_font_type_t
 HintStyle: cover from cairo_hint_style_t
 HintMetrics: cover from cairo_hint_metrics_t
+
 Format: cover from cairo_format_t
+CairoFormat: enum from Format {
+    INVALID   = -1,
+    ARGB32    = 0,
+    RGB24     = 1,
+    A8        = 2,
+    A1        = 3,
+    RGB16_565 = 4
+}
 
 UserDataKeyStruct: cover from cairo_user_data_key_t { }
 
@@ -78,7 +95,7 @@ Context: cover from cairo_t* {
     setOperator: extern(cairo_set_operator) func (op: Operator)
     setSource: extern(cairo_set_source) func (source: Pattern)
     setSourceRGB: extern(cairo_set_source_rgb) func (red: Double, green: Double, blue: Double)
-    setSourceRGBa: extern(cairo_set_source_rgba) func (red: Double, green: Double, blue: Double, alpha: Double)
+    setSourceRGBA: extern(cairo_set_source_rgba) func (red: Double, green: Double, blue: Double, alpha: Double)
     setSourceSurface: extern(cairo_set_source_surface) func (surface: Surface, x: Double, y: Double)
     setTolerance: extern(cairo_set_tolerance) func (tolerance: Double)
     setAntialias: extern(cairo_set_antialias) func (antialias: Antialias)
