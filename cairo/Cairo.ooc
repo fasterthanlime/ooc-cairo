@@ -22,8 +22,20 @@ SubPixelOrder: cover from cairo_subpixel_order_t
 FillRule: cover from cairo_fill_rule_t
 LineCap: cover from cairo_line_cap_t
 LineJoin: cover from cairo_line_join_t
+
 FontSlant: cover from cairo_font_slant_t
+CairoFontSlant: enum from FontSlant {
+    NORMAL,
+    ITALIC,
+    OBLIQUE
+}
+
 FontWeight: cover from cairo_font_weight_t
+CairoFontWeight: enum from FontWeight {
+    NORMAL,
+    BOLD
+}
+
 TextClusterFlags: cover from cairo_text_cluster_flags_t
 PatternType: cover from cairo_pattern_type_t
 Extend: cover from cairo_extend_t
@@ -268,7 +280,14 @@ FontOptions: cover from cairo_font_options_t* {
     getHintMetrics: extern(cairo_font_options_get_hint_metrics) func -> HintMetrics
 }
 
+MatrixStruct: cover from cairo_matrix_t {}
+
 Matrix: cover from cairo_matrix_t* {
+    new: static func ~identity -> This {
+        m := gc_malloc(MatrixStruct size) as Matrix
+        m initIdentity()
+        m
+    }
     init: extern(cairo_matrix_init) func (xx: Double, yx: Double, xy: Double, yy: Double, x0: Double, y0: Double)
     initIdentity: extern(cairo_matrix_init_identity) func
     initTranslate: extern(cairo_matrix_init_translate) func (tx: Double, ty: Double)
