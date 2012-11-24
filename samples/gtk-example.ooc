@@ -3,7 +3,7 @@ use cairo, gtk
 import cairo/[Cairo, GdkCairo]
 import gtk/[Gtk, Widget, Window]
 
-repaint: func (cr: Context) {
+repaint: func (cr: CairoContext) {
 	/* code from test.ooc! */
 	cr setSourceRGB(0, 0, 0)
 	cr paint()

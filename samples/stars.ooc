@@ -18,7 +18,7 @@ main: func (argc: Int, argv: String*) {
     }
 
     surface := ImageSurface new(CairoFormat ARGB32, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
-    cr := Context new(surface) as MyContext
+    cr := CairoContext new(surface) as MyContext
 
     cr setSourceRGB(0, 0, 0)
     cr paint()
@@ -49,7 +49,7 @@ main: func (argc: Int, argv: String*) {
 	
 }
 
-MyContext: cover from cairo_t* extends Context {
+MyContext: cover from cairo_t* extends CairoContext {
 	
     drawStar: func (x, y, pikes: Int, radius, ratio: Float) {
 	    

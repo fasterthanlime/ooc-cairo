@@ -5,48 +5,215 @@ use cairo
 cairo_user_data_key_t: extern cover
 
 /* TODO: enums, and they have values */
-CairoStatus: cover from cairo_status_t
-Content: cover from cairo_content_t
-SurfaceType: cover from cairo_surface_type_t
-Operator: cover from cairo_operator_t
+CairoStatus: enum /* from cairo_status_t */ {
+    SUCCESS = 0
+
+    NO_MEMORY
+    INVALID_RESTORE
+    INVALID_POP_GROUP
+    NO_CURRENT_POINT
+    INVALID_MATRIX
+    INVALID_STATUS
+    NULL_POINTER
+    INVALID_STRING
+    INVALID_PATH_DATA
+    READ_ERROR
+    WRITE_ERROR
+    SURFACE_FINISHED
+    SURFACE_TYPE_MISMATCH
+    PATTERN_TYPE_MISMATCH
+    INVALID_CONTENT
+    INVALID_FORMAT
+    INVALID_VISUAL
+    FILE_NOT_FOUND
+    INVALID_DASH
+    INVALID_DSC_COMMENT
+    INVALID_INDEX
+    CLIP_NOT_REPRESENTABLE
+    TEMP_FILE_ERROR
+    INVALID_STRIDE
+    FONT_TYPE_MISMATCH
+    USER_FONT_IMMUTABLE
+    USER_FONT_ERROR
+    NEGATIVE_COUNT
+    INVALID_CLUSTERS
+    INVALID_SLANT
+    INVALID_WEIGHT
+    INVALID_SIZE
+    USER_FONT_NOT_IMPLEMENTED
+    DEVICE_TYPE_MISMATCH
+    DEVICE_ERROR
+
+    LAST_STATUS
+}
+
+CairoContent: enum /* from cairo_content_t */ {
+    COLOR: extern(CAIRO_CONTENT_COLOR)
+    ALPHA: extern(CAIRO_CONTENT_ALPHA)
+    COLOR_ALPHA: extern(CAIRO_CONTENT_COLOR_ALPHA)
+}
+
+CairoSurfaceType: enum /* from cairo_surface_type_t */ {
+    IMAGE
+    PDF
+    PS
+    XLIB
+    XCB
+    GLITZ
+    QUARTZ
+    WIN32
+    BEOS
+    DIRECTFB
+    SVG
+    OS2
+    WIN32_PRINTING
+    QUARTZ_IMAGE
+    SCRIPT
+    QT
+    RECORDING
+    VG
+    GL
+    DRM
+    TEE
+    XML
+    SKIA
+    SUBSURFACE
+}
+
+CairoOperator: enum /* from cairo_operator_t */ {
+    CLEAR
+
+    SOURCE
+    OVER
+    IN
+    OUT
+    ATOP
+
+    DEST
+    DEST_OVER
+    DEST_IN
+    DEST_OUT
+    DEST_ATOP
+
+    XOR
+    ADD
+    SATURATE
+
+    MULTIPLY
+    SCREEN
+    OVERLAY
+    DARKEN
+    LIGHTEN
+    COLOR_DODGE
+    COLOR_BURN
+    HARD_LIGHT
+    SOFT_LIGHT
+    DIFFERENCE
+    EXCLUSION
+    HSL_HUE
+    HSL_SATURATION
+    HSL_COLOR
+    HSL_LUMINOSITY
+}
 
 CairoAntialias: enum /* from cairo_antialias_t */ {
-    DEFAULT,
-    NONE,
-    GRAY,
+    DEFAULT
+    NONE
+    GRAY
     SUBPIXEL
 }
 
-SubPixelOrder: cover from cairo_subpixel_order_t
-FillRule: cover from cairo_fill_rule_t
-LineCap: cover from cairo_line_cap_t
-LineJoin: cover from cairo_line_join_t
+CairoSubPixelOrder: enum /* from cairo_subpixel_order_t */ {
+    DEFAULT
+    RGB
+    BGR
+    VRGB
+    VBGR
+}
+
+CairoFillRule: enum /* from cairo_fill_rule_t */ {
+    WINDING
+    EVEN_ODD
+}
+
+CairoLineCap: enum /* from cairo_line_cap_t */ {
+    BUTT
+    ROUND
+    SQUARE
+}
+
+CairoLineJoin: enum /* from cairo_line_join_t */ {
+    MITER
+    ROUND
+    BEVEL
+}
 
 CairoFontSlant: enum /* from cairo_font_slant_t */ {
-    NORMAL,
-    ITALIC,
+    NORMAL
+    ITALIC
     OBLIQUE
 }
 
 CairoFontWeight: enum /* from cairo_font_weight_t */ {
-    NORMAL,
+    NORMAL
     BOLD
 }
 
-TextClusterFlags: cover from cairo_text_cluster_flags_t
-PatternType: cover from cairo_pattern_type_t
-Extend: cover from cairo_extend_t
-Filter: cover from cairo_filter_t
-FontType: cover from cairo_font_type_t
-HintStyle: cover from cairo_hint_style_t
-HintMetrics: cover from cairo_hint_metrics_t
+CairoTextClusterFlags: enum /* from cairo_text_cluster_flags_t */ {
+    BACKWARD: extern(CAIRO_TEXT_CLUSTER_FLAG_BACKWARD)
+}
+
+CairoPatternType: enum /* from cairo_pattern_type_t */ {
+    SOLID
+    SURFACE
+    LINEAR
+    RADIAL
+}
+
+CairoExtend: enum /* from cairo_extend_t */ {
+    NONE
+    REPEAT
+    REFLECT
+    PAD
+}
+
+CairoFilter: enum /* from cairo_filter_t */ {
+    FAST
+    GOOD
+    BEST
+    NEAREST
+    BILINEAR
+    GAUSSIAN
+}
+
+CairoFontType: enum /* from cairo_font_type_t */ {
+    TOY
+    FT
+    WIN32
+    QUARTZ
+    USER
+}
+
+CairoHintStyle: enum /* from cairo_hint_style_t */ {
+    DEFAULT
+    NONE
+    SLIGHT
+    MEDIUM
+    FULL
+}
+
+CairoHintMetrics: enum /* from cairo_hint_metrics_t */ {
+    DEFAULT
+    OFF
+    ON
+}
 
 CairoFormat: enum /* cairo_format_t */ {
-    INVALID   = -1,
-    ARGB32    = 0,
-    RGB24     = 1,
-    A8        = 2,
-    A1        = 3,
+    INVALID = -1
+    ARGB32 = 0
+    RGB24 = 1
+    A8 = 2
+    A1 = 3
     RGB16_565 = 4
 }
 
@@ -58,7 +225,7 @@ UserDataKey: cover from UserDataKeyStruct* {
     }
 }
 
-Rectangle: cover from cairo_rectangle_t {
+CairoRectangle: cover from cairo_rectangle_t {
     x, y, width, height: extern Int
 }
 
@@ -67,9 +234,9 @@ TextCluster: cover from cairo_text_cluster_t* {
     numGlyphs: extern(num_glyphs) Int
 }
 
-RectangleList: cover from cairo_rectangle_list_t* {
+CairoRectangleList: cover from cairo_rectangle_list_t* {
     status: extern CairoStatus
-    rectangles: extern Rectangle*
+    rectangles: extern CairoRectangle*
     numRectangles: extern(num_rectangles) Int
 }
 
@@ -87,9 +254,9 @@ FontExtents: cover from cairo_font_extents_t* {
     maxYAdvance: extern(max_y_advance) Double
 }
 
-Context: cover from cairo_t* {
-    new: extern(cairo_create) static func (target: Surface) -> Context
-    reference: extern(cairo_reference) func -> Context
+CairoContext: cover from cairo_t* {
+    new: extern(cairo_create) static func (target: Surface) -> CairoContext
+    reference: extern(cairo_reference) func -> CairoContext
     destroy: extern(cairo_destroy) func
     getReferenceCount: extern(cairo_get_reference_count) func -> UInt
     getUserData: extern(cairo_get_user_data) func (key: UserDataKey) -> Void*
@@ -97,20 +264,20 @@ Context: cover from cairo_t* {
     save: extern(cairo_save) func
     restore: extern(cairo_restore) func
     pushGroup: extern(cairo_push_group) func
-    pushGroupWithContent: extern(cairo_push_group_with_content) func (content: Content)
+    pushGroupWithContent: extern(cairo_push_group_with_content) func (content: CairoContent)
     popGroup: extern(cairo_pop_group) func -> Pattern
     popGroupToSource: extern(cairo_pop_group_to_source) func
-    setOperator: extern(cairo_set_operator) func (op: Operator)
+    setOperator: extern(cairo_set_operator) func (op: CairoOperator)
     setSource: extern(cairo_set_source) func (source: Pattern)
     setSourceRGB: extern(cairo_set_source_rgb) func (red: Double, green: Double, blue: Double)
     setSourceRGBA: extern(cairo_set_source_rgba) func (red: Double, green: Double, blue: Double, alpha: Double)
     setSourceSurface: extern(cairo_set_source_surface) func (surface: Surface, x: Double, y: Double)
     setTolerance: extern(cairo_set_tolerance) func (tolerance: Double)
     setAntialias: extern(cairo_set_antialias) func (antialias: CairoAntialias)
-    setFillRule: extern(cairo_set_fill_rule) func (fillRule: FillRule)
+    setFillRule: extern(cairo_set_fill_rule) func (fillRule: CairoFillRule)
     setLineWidth: extern(cairo_set_line_width) func (width: Double)
-    setLineCap: extern(cairo_set_line_cap) func (lineCap: LineCap)
-    setLineJoin: extern(cairo_set_line_join) func (lineJoin: LineJoin)
+    setLineCap: extern(cairo_set_line_cap) func (lineCap: CairoLineCap)
+    setLineJoin: extern(cairo_set_line_join) func (lineJoin: CairoLineJoin)
     setDash: extern(cairo_set_dash) func (dashes: Double*, numDashes: Int, offset: Double)
     setMiterLimit: extern(cairo_set_miter_limit) func (limit: Double)
     translate: extern(cairo_translate) func (tx: Double, ty: Double)
@@ -153,7 +320,7 @@ Context: cover from cairo_t* {
     clip: extern(cairo_clip) func
     clipPreserve: extern(cairo_clip_preserve) func
     clipExtents: extern(cairo_clip_extents) func (x1: Double*, y1: Double*, x2: Double*, y2: Double*)
-    copyClipRectangleList: extern(cairo_copy_clip_rectangle_list) func -> RectangleList*
+    copyClipRectangleList: extern(cairo_copy_clip_rectangle_list) func -> CairoRectangleList*
     selectFontFace: extern(cairo_select_font_face) func (family: Char*, slant: CairoFontSlant, weight: CairoFontWeight)
     setFontSize: extern(cairo_set_font_size) func (size: Double)
     setFontMatrix: extern(cairo_set_font_matrix) func (matrix: Matrix)
@@ -166,22 +333,22 @@ Context: cover from cairo_t* {
     getScaledFont: extern(cairo_get_scaled_font) func -> ScaledFont
     showText: extern(cairo_show_text) func (utf8: Char*)
     showGlyphs: extern(cairo_show_glyphs) func (glyphs: Glyph, numGlyphs: Int)
-    showTextGlyphs: extern(cairo_show_text_glyphs) func (utf8: Char*, utf8Len: Int, glyphs: Glyph, numGlyphs: Int, clusters: TextCluster, numClusters: Int, clusterFlags: TextClusterFlags)
+    showTextGlyphs: extern(cairo_show_text_glyphs) func (utf8: Char*, utf8Len: Int, glyphs: Glyph, numGlyphs: Int, clusters: TextCluster, numClusters: Int, clusterFlags: CairoTextClusterFlags)
     textPath: extern(cairo_text_path) func (utf8: Char*)
     glyphPath: extern(cairo_glyph_path) func (glyphs: Glyph, numGlyphs: Int)
     textExtents: extern(cairo_text_extents) func (utf8: Char*, extents: TextExtents*)
     glyphExtents: extern(cairo_glyph_extents) func (glyphs: Glyph, numGlyphs: Int, extents: TextExtents*)
     fontExtents: extern(cairo_font_extents) func (extents: FontExtents)
-    getOperator: extern(cairo_get_operator) func -> Operator
+    getOperator: extern(cairo_get_operator) func -> CairoOperator
     getSource: extern(cairo_get_source) func -> Pattern
     getTolerance: extern(cairo_get_tolerance) func -> Double
     getAntialias: extern(cairo_get_antialias) func -> CairoAntialias
     hasCurrentPoint: extern(cairo_has_current_point) func -> Bool
     getCurrentPoint: extern(cairo_get_current_point) func (x: Double*, y: Double*)
-    getFillRule: extern(cairo_get_fill_rule) func -> FillRule
+    getFillRule: extern(cairo_get_fill_rule) func -> CairoFillRule
     getLineWidth: extern(cairo_get_line_width) func -> Double
-    getLineCap: extern(cairo_get_line_cap) func -> LineCap
-    getLineJoin: extern(cairo_get_line_join) func -> LineJoin
+    getLineCap: extern(cairo_get_line_cap) func -> CairoLineCap
+    getLineJoin: extern(cairo_get_line_join) func -> CairoLineJoin
     getMiterLimit: extern(cairo_get_miter_limit) func -> Double
     getDashCount: extern(cairo_get_dash_count) func -> Int
     getDash: extern(cairo_get_dash) func (dashes: Double*, offset: Double*)
@@ -211,15 +378,15 @@ Pattern: cover from cairo_pattern_t* {
     status: extern(cairo_pattern_status) func -> CairoStatus
     getUserData: extern(cairo_pattern_get_user_data) func (key: UserDataKey) -> Void*
     setUserData: extern(cairo_pattern_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
-    getType: extern(cairo_pattern_get_type) func -> PatternType
+    getType: extern(cairo_pattern_get_type) func -> CairoPatternType
     addColorStopRGB: extern(cairo_pattern_add_color_stop_rgb) func (offset: Double, red: Double, green: Double, blue: Double)
     addColorStopRGBa: extern(cairo_pattern_add_color_stop_rgba) func (offset: Double, red: Double, green: Double, blue: Double, alpha: Double)
     setMatrix: extern(cairo_pattern_set_matrix) func (matrix: Matrix)
     getMatrix: extern(cairo_pattern_get_matrix) func (matrix: Matrix)
-    setExtend: extern(cairo_pattern_set_extend) func (extend: Extend)
-    getExtend: extern(cairo_pattern_get_extend) func -> Extend
-    setFilter: extern(cairo_pattern_set_filter) func (filter: Filter)
-    getFilter: extern(cairo_pattern_get_filter) func -> Filter
+    setExtend: extern(cairo_pattern_set_extend) func (extend: CairoExtend)
+    getExtend: extern(cairo_pattern_get_extend) func -> CairoExtend
+    setFilter: extern(cairo_pattern_set_filter) func (filter: CairoFilter)
+    getFilter: extern(cairo_pattern_get_filter) func -> CairoFilter
     getRGBa: extern(cairo_pattern_get_rgba) func (red: Double*, green: Double*, blue: Double*, alpha: Double*) -> CairoStatus
     getSurface: extern(cairo_pattern_get_surface) func (surface: Surface*) -> CairoStatus
     getColorStopRGBa: extern(cairo_pattern_get_color_stop_rgba) func (index: Int, offset: Double*, red: Double*, green: Double*, blue: Double*, alpha: Double*) -> CairoStatus
@@ -233,7 +400,7 @@ FontFace: cover from cairo_font_face_t* {
     destroy: extern(cairo_font_face_destroy) func
     getReferenceCount: extern(cairo_font_face_get_reference_count) func -> UInt
     status: extern(cairo_font_face_status) func -> CairoStatus
-    getType: extern(cairo_font_face_get_type) func -> FontType
+    getType: extern(cairo_font_face_get_type) func -> CairoFontType
     getUserData: extern(cairo_font_face_get_user_data) func (key: UserDataKey) -> Void*
     setUserData: extern(cairo_font_face_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
 }
@@ -244,13 +411,13 @@ ScaledFont: cover from cairo_scaled_font_t* {
     destroy: extern(cairo_scaled_font_destroy) func
     getReferenceCount: extern(cairo_scaled_font_get_reference_count) func -> UInt
     status: extern(cairo_scaled_font_status) func -> CairoStatus
-    getType: extern(cairo_scaled_font_get_type) func -> FontType
+    getType: extern(cairo_scaled_font_get_type) func -> CairoFontType
     getUserData: extern(cairo_scaled_font_get_user_data) func (key: UserDataKey) -> Void*
     setUserData: extern(cairo_scaled_font_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
     extents: extern(cairo_scaled_font_extents) func (extents: FontExtents)
     textExtents: extern(cairo_scaled_font_text_extents) func (utf8: Char*, extents: TextExtents*)
     glyphExtents: extern(cairo_scaled_font_glyph_extents) func (glyphs: Glyph, numGlyphs: Int, extents: TextExtents*)
-    textToGlyphs: extern(cairo_scaled_font_text_to_glyphs) func (x: Double, y: Double, utf8: Char*, utf8Len: Int, glyphs: Glyph*, numGlyphs: Int*, clusters: TextCluster*, numClusters: Int*, clusterFlags: TextClusterFlags*) -> CairoStatus
+    textToGlyphs: extern(cairo_scaled_font_text_to_glyphs) func (x: Double, y: Double, utf8: Char*, utf8Len: Int, glyphs: Glyph*, numGlyphs: Int*, clusters: TextCluster*, numClusters: Int*, clusterFlags: CairoTextClusterFlags*) -> CairoStatus
     getFontFace: extern(cairo_scaled_font_get_font_face) func -> FontFace
     getFontMatrix: extern(cairo_scaled_font_get_font_matrix) func (fontMatrix: Matrix)
     getCtm: extern(cairo_scaled_font_get_ctm) func (ctm: Matrix)
@@ -268,12 +435,12 @@ FontOptions: cover from cairo_font_options_t* {
     hash: extern(cairo_font_options_hash) func -> ULong
     setAntialias: extern(cairo_font_options_set_antialias) func (antialias: CairoAntialias)
     getAntialias: extern(cairo_font_options_get_antialias) func -> CairoAntialias
-    setSubpixelOrder: extern(cairo_font_options_set_subpixel_order) func (subpixelOrder: SubPixelOrder)
-    getSubpixelOrder: extern(cairo_font_options_get_subpixel_order) func -> SubPixelOrder
-    setHintStyle: extern(cairo_font_options_set_hint_style) func (hintStyle: HintStyle)
-    getHintStyle: extern(cairo_font_options_get_hint_style) func -> HintStyle
-    setHintMetrics: extern(cairo_font_options_set_hint_metrics) func (hintMetrics: HintMetrics)
-    getHintMetrics: extern(cairo_font_options_get_hint_metrics) func -> HintMetrics
+    setSubpixelOrder: extern(cairo_font_options_set_subpixel_order) func (subpixelOrder: CairoSubPixelOrder)
+    getSubpixelOrder: extern(cairo_font_options_get_subpixel_order) func -> CairoSubPixelOrder
+    setHintStyle: extern(cairo_font_options_set_hint_style) func (hintStyle: CairoHintStyle)
+    getHintStyle: extern(cairo_font_options_get_hint_style) func -> CairoHintStyle
+    setHintMetrics: extern(cairo_font_options_set_hint_metrics) func (hintMetrics: CairoHintMetrics)
+    getHintMetrics: extern(cairo_font_options_get_hint_metrics) func -> CairoHintMetrics
 }
 
 MatrixStruct: cover from cairo_matrix_t {}
@@ -318,14 +485,14 @@ UserFontFace: cover from cairo_font_face_t* extends FontFace {
 }
 
 Surface: cover from cairo_surface_t* {
-    createSimilar: extern(cairo_surface_create_similar) func (content: Content, width: Int, height: Int) -> Surface
+    createSimilar: extern(cairo_surface_create_similar) func (content: CairoContent, width: Int, height: Int) -> Surface
     reference: extern(cairo_surface_reference) func -> Surface
     finish: extern(cairo_surface_finish) func
     destroy: extern(cairo_surface_destroy) func
     getReferenceCount: extern(cairo_surface_get_reference_count) func -> UInt
     status: extern(cairo_surface_status) func -> CairoStatus
-    getType: extern(cairo_surface_get_type) func -> SurfaceType
-    getContent: extern(cairo_surface_get_content) func -> Content
+    getType: extern(cairo_surface_get_type) func -> CairoSurfaceType
+    getContent: extern(cairo_surface_get_content) func -> CairoContent
     writeToPng: extern(cairo_surface_write_to_png) func (filename: Char*) -> CairoStatus
     writeToPngStream: extern(cairo_surface_write_to_png_stream) func (writeFunc: Func, closure: Void*) -> CairoStatus
     getUserData: extern(cairo_surface_get_user_data) func (key: UserDataKey) -> Void*
