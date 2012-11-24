@@ -17,7 +17,7 @@ main: func (argc: Int, argv: String*) {
 	h = argv[2] as String toInt()
     }
 
-    surface := ImageSurface new(CairoFormat ARGB32, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
+    surface := CairoImageSurface new(CairoFormat ARGB32, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
     cr := CairoContext new(surface) as MyContext
 
     cr setSourceRGB(0, 0, 0)

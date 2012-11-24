@@ -31,4 +31,3 @@ main: func {
 	Gtk main()
 }
 
-exit: extern func

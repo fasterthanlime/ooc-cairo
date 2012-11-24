@@ -5,7 +5,7 @@ main: func {
     w := 400
     h := 400
 
-    surface := ImageSurface new(CairoFormat ARGB32, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
+    surface := CairoImageSurface new(CairoFormat ARGB32, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
     cr := CairoContext new(surface)
 
     cr setSourceRGB(0, 0, 0)
