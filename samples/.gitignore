@@ -1,5 +1,4 @@
-test
-test.png
-stars
-stars.png
-gtk-example
+*.png
+gtk-basic
+image-basic
+image-stars
