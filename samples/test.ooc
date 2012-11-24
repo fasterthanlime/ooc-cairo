@@ -1,10 +1,11 @@
+use cairo
 import cairo/Cairo
 
 main: func {
     w := 400
     h := 400
 
-    surface := ImageSurface new(0, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
+    surface := ImageSurface new(CairoFormat ARGB32, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
     cr := Context new(surface)
 
     cr setSourceRGB(0, 0, 0)

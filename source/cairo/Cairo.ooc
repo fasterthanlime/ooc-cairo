@@ -10,8 +10,7 @@ Content: cover from cairo_content_t
 SurfaceType: cover from cairo_surface_type_t
 Operator: cover from cairo_operator_t
 
-Antialias: cover from cairo_antialias_t
-CairoAntialias: enum from Antialias {
+CairoAntialias: enum /* from cairo_antialias_t */ {
     DEFAULT,
     NONE,
     GRAY,
@@ -23,15 +22,13 @@ FillRule: cover from cairo_fill_rule_t
 LineCap: cover from cairo_line_cap_t
 LineJoin: cover from cairo_line_join_t
 
-FontSlant: cover from cairo_font_slant_t
-CairoFontSlant: enum from FontSlant {
+CairoFontSlant: enum /* from cairo_font_slant_t */ {
     NORMAL,
     ITALIC,
     OBLIQUE
 }
 
-FontWeight: cover from cairo_font_weight_t
-CairoFontWeight: enum from FontWeight {
+CairoFontWeight: enum /* from cairo_font_weight_t */ {
     NORMAL,
     BOLD
 }
@@ -44,8 +41,7 @@ FontType: cover from cairo_font_type_t
 HintStyle: cover from cairo_hint_style_t
 HintMetrics: cover from cairo_hint_metrics_t
 
-Format: cover from cairo_format_t
-CairoFormat: enum from Format {
+CairoFormat: enum /* cairo_format_t */ {
     INVALID   = -1,
     ARGB32    = 0,
     RGB24     = 1,
@@ -110,7 +106,7 @@ Context: cover from cairo_t* {
     setSourceRGBA: extern(cairo_set_source_rgba) func (red: Double, green: Double, blue: Double, alpha: Double)
     setSourceSurface: extern(cairo_set_source_surface) func (surface: Surface, x: Double, y: Double)
     setTolerance: extern(cairo_set_tolerance) func (tolerance: Double)
-    setAntialias: extern(cairo_set_antialias) func (antialias: Antialias)
+    setAntialias: extern(cairo_set_antialias) func (antialias: CairoAntialias)
     setFillRule: extern(cairo_set_fill_rule) func (fillRule: FillRule)
     setLineWidth: extern(cairo_set_line_width) func (width: Double)
     setLineCap: extern(cairo_set_line_cap) func (lineCap: LineCap)
@@ -158,7 +154,7 @@ Context: cover from cairo_t* {
     clipPreserve: extern(cairo_clip_preserve) func
     clipExtents: extern(cairo_clip_extents) func (x1: Double*, y1: Double*, x2: Double*, y2: Double*)
     copyClipRectangleList: extern(cairo_copy_clip_rectangle_list) func -> RectangleList*
-    selectFontFace: extern(cairo_select_font_face) func (family: Char*, slant: FontSlant, weight: FontWeight)
+    selectFontFace: extern(cairo_select_font_face) func (family: Char*, slant: CairoFontSlant, weight: CairoFontWeight)
     setFontSize: extern(cairo_set_font_size) func (size: Double)
     setFontMatrix: extern(cairo_set_font_matrix) func (matrix: Matrix)
     getFontMatrix: extern(cairo_get_font_matrix) func (matrix: Matrix)
@@ -179,7 +175,7 @@ Context: cover from cairo_t* {
     getOperator: extern(cairo_get_operator) func -> Operator
     getSource: extern(cairo_get_source) func -> Pattern
     getTolerance: extern(cairo_get_tolerance) func -> Double
-    getAntialias: extern(cairo_get_antialias) func -> Antialias
+    getAntialias: extern(cairo_get_antialias) func -> CairoAntialias
     hasCurrentPoint: extern(cairo_has_current_point) func -> Bool
     getCurrentPoint: extern(cairo_get_current_point) func (x: Double*, y: Double*)
     getFillRule: extern(cairo_get_fill_rule) func -> FillRule
@@ -270,8 +266,8 @@ FontOptions: cover from cairo_font_options_t* {
     merge: extern(cairo_font_options_merge) func (other: FontOptions)
     equal: extern(cairo_font_options_equal) func (other: FontOptions) -> Bool
     hash: extern(cairo_font_options_hash) func -> ULong
-    setAntialias: extern(cairo_font_options_set_antialias) func (antialias: Antialias)
-    getAntialias: extern(cairo_font_options_get_antialias) func -> Antialias
+    setAntialias: extern(cairo_font_options_set_antialias) func (antialias: CairoAntialias)
+    getAntialias: extern(cairo_font_options_get_antialias) func -> CairoAntialias
     setSubpixelOrder: extern(cairo_font_options_set_subpixel_order) func (subpixelOrder: SubPixelOrder)
     getSubpixelOrder: extern(cairo_font_options_get_subpixel_order) func -> SubPixelOrder
     setHintStyle: extern(cairo_font_options_set_hint_style) func (hintStyle: HintStyle)
@@ -303,10 +299,10 @@ Matrix: cover from cairo_matrix_t* {
 }
 
 ToyFontFace: cover from cairo_font_face_t* extends FontFace {
-    new: extern(cairo_toy_font_face_create) static func (family: Char*, slant: FontSlant, weight: FontWeight) -> FontFace
+    new: extern(cairo_toy_font_face_create) static func (family: Char*, slant: CairoFontSlant, weight: CairoFontWeight) -> FontFace
     getFamily: extern(cairo_toy_font_face_get_family) func -> Char*
-    getSlant: extern(cairo_toy_font_face_get_slant) func -> FontSlant
-    getWeight: extern(cairo_toy_font_face_get_weight) func -> FontWeight
+    getSlant: extern(cairo_toy_font_face_get_slant) func -> CairoFontSlant
+    getWeight: extern(cairo_toy_font_face_get_weight) func -> CairoFontWeight
 }
 
 UserFontFace: cover from cairo_font_face_t* extends FontFace {
@@ -348,10 +344,10 @@ Surface: cover from cairo_surface_t* {
 }
 
 ImageSurface: cover from cairo_surface_t* extends Surface {
-    new: extern(cairo_image_surface_create) static func (format: Format, width: Int, height: Int) -> Surface
-    new: extern(cairo_image_surface_create_for_data) static func ~forData (data: UChar*, format: Format, width: Int, height: Int, stride: Int) -> Surface
+    new: extern(cairo_image_surface_create) static func (format: CairoFormat, width: Int, height: Int) -> Surface
+    new: extern(cairo_image_surface_create_for_data) static func ~forData (data: UChar*, format: CairoFormat, width: Int, height: Int, stride: Int) -> Surface
     getData: extern(cairo_image_surface_get_data) func -> UChar*
-    getFormat: extern(cairo_image_surface_get_format) func -> Format
+    getFormat: extern(cairo_image_surface_get_format) func -> CairoFormat
     getWidth: extern(cairo_image_surface_get_width) func -> Int
     getHeight: extern(cairo_image_surface_get_height) func -> Int
     getStride: extern(cairo_image_surface_get_stride) func -> Int
