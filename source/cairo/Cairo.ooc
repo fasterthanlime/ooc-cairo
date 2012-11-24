@@ -5,7 +5,7 @@ use cairo
 cairo_user_data_key_t: extern cover
 
 /* TODO: enums, and they have values */
-Status: cover from cairo_status_t
+CairoStatus: cover from cairo_status_t
 Content: cover from cairo_content_t
 SurfaceType: cover from cairo_surface_type_t
 Operator: cover from cairo_operator_t
@@ -68,7 +68,7 @@ TextCluster: cover from cairo_text_cluster_t* {
 }
 
 RectangleList: cover from cairo_rectangle_list_t* {
-    status: extern Status
+    status: extern CairoStatus
     rectangles: extern Rectangle*
     numRectangles: extern(num_rectangles) Int
 }
@@ -93,7 +93,7 @@ Context: cover from cairo_t* {
     destroy: extern(cairo_destroy) func
     getReferenceCount: extern(cairo_get_reference_count) func -> UInt
     getUserData: extern(cairo_get_user_data) func (key: UserDataKey) -> Void*
-    setUserData: extern(cairo_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> Status
+    setUserData: extern(cairo_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
     save: extern(cairo_save) func
     restore: extern(cairo_restore) func
     pushGroup: extern(cairo_push_group) func
@@ -191,7 +191,7 @@ Context: cover from cairo_t* {
     copyPath: extern(cairo_copy_path) func -> Path
     copyPathFlat: extern(cairo_copy_path_flat) func -> Path
     appendPath: extern(cairo_append_path) func (path: Path)
-    status: extern(cairo_status) func -> Status
+    status: extern(cairo_status) func -> CairoStatus
 }
 
 Path: cover from cairo_path_t* {
@@ -208,9 +208,9 @@ Pattern: cover from cairo_pattern_t* {
     reference: extern(cairo_pattern_reference) func -> Pattern
     destroy: extern(cairo_pattern_destroy) func
     getReferenceCount: extern(cairo_pattern_get_reference_count) func -> UInt
-    status: extern(cairo_pattern_status) func -> Status
+    status: extern(cairo_pattern_status) func -> CairoStatus
     getUserData: extern(cairo_pattern_get_user_data) func (key: UserDataKey) -> Void*
-    setUserData: extern(cairo_pattern_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> Status
+    setUserData: extern(cairo_pattern_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
     getType: extern(cairo_pattern_get_type) func -> PatternType
     addColorStopRGB: extern(cairo_pattern_add_color_stop_rgb) func (offset: Double, red: Double, green: Double, blue: Double)
     addColorStopRGBa: extern(cairo_pattern_add_color_stop_rgba) func (offset: Double, red: Double, green: Double, blue: Double, alpha: Double)
@@ -220,22 +220,22 @@ Pattern: cover from cairo_pattern_t* {
     getExtend: extern(cairo_pattern_get_extend) func -> Extend
     setFilter: extern(cairo_pattern_set_filter) func (filter: Filter)
     getFilter: extern(cairo_pattern_get_filter) func -> Filter
-    getRGBa: extern(cairo_pattern_get_rgba) func (red: Double*, green: Double*, blue: Double*, alpha: Double*) -> Status
-    getSurface: extern(cairo_pattern_get_surface) func (surface: Surface*) -> Status
-    getColorStopRGBa: extern(cairo_pattern_get_color_stop_rgba) func (index: Int, offset: Double*, red: Double*, green: Double*, blue: Double*, alpha: Double*) -> Status
-    getColorStopCount: extern(cairo_pattern_get_color_stop_count) func (count: Int*) -> Status
-    getLinearPoints: extern(cairo_pattern_get_linear_points) func (x0: Double*, y0: Double*, x1: Double*, y1: Double*) -> Status
-    getRadialCircles: extern(cairo_pattern_get_radial_circles) func (x0: Double*, y0: Double*, r0: Double*, x1: Double*, y1: Double*, r1: Double*) -> Status
+    getRGBa: extern(cairo_pattern_get_rgba) func (red: Double*, green: Double*, blue: Double*, alpha: Double*) -> CairoStatus
+    getSurface: extern(cairo_pattern_get_surface) func (surface: Surface*) -> CairoStatus
+    getColorStopRGBa: extern(cairo_pattern_get_color_stop_rgba) func (index: Int, offset: Double*, red: Double*, green: Double*, blue: Double*, alpha: Double*) -> CairoStatus
+    getColorStopCount: extern(cairo_pattern_get_color_stop_count) func (count: Int*) -> CairoStatus
+    getLinearPoints: extern(cairo_pattern_get_linear_points) func (x0: Double*, y0: Double*, x1: Double*, y1: Double*) -> CairoStatus
+    getRadialCircles: extern(cairo_pattern_get_radial_circles) func (x0: Double*, y0: Double*, r0: Double*, x1: Double*, y1: Double*, r1: Double*) -> CairoStatus
 }
 
 FontFace: cover from cairo_font_face_t* {
     reference: extern(cairo_font_face_reference) func -> FontFace
     destroy: extern(cairo_font_face_destroy) func
     getReferenceCount: extern(cairo_font_face_get_reference_count) func -> UInt
-    status: extern(cairo_font_face_status) func -> Status
+    status: extern(cairo_font_face_status) func -> CairoStatus
     getType: extern(cairo_font_face_get_type) func -> FontType
     getUserData: extern(cairo_font_face_get_user_data) func (key: UserDataKey) -> Void*
-    setUserData: extern(cairo_font_face_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> Status
+    setUserData: extern(cairo_font_face_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
 }
 
 ScaledFont: cover from cairo_scaled_font_t* {
@@ -243,14 +243,14 @@ ScaledFont: cover from cairo_scaled_font_t* {
     reference: extern(cairo_scaled_font_reference) func -> ScaledFont
     destroy: extern(cairo_scaled_font_destroy) func
     getReferenceCount: extern(cairo_scaled_font_get_reference_count) func -> UInt
-    status: extern(cairo_scaled_font_status) func -> Status
+    status: extern(cairo_scaled_font_status) func -> CairoStatus
     getType: extern(cairo_scaled_font_get_type) func -> FontType
     getUserData: extern(cairo_scaled_font_get_user_data) func (key: UserDataKey) -> Void*
-    setUserData: extern(cairo_scaled_font_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> Status
+    setUserData: extern(cairo_scaled_font_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
     extents: extern(cairo_scaled_font_extents) func (extents: FontExtents)
     textExtents: extern(cairo_scaled_font_text_extents) func (utf8: Char*, extents: TextExtents*)
     glyphExtents: extern(cairo_scaled_font_glyph_extents) func (glyphs: Glyph, numGlyphs: Int, extents: TextExtents*)
-    textToGlyphs: extern(cairo_scaled_font_text_to_glyphs) func (x: Double, y: Double, utf8: Char*, utf8Len: Int, glyphs: Glyph*, numGlyphs: Int*, clusters: TextCluster*, numClusters: Int*, clusterFlags: TextClusterFlags*) -> Status
+    textToGlyphs: extern(cairo_scaled_font_text_to_glyphs) func (x: Double, y: Double, utf8: Char*, utf8Len: Int, glyphs: Glyph*, numGlyphs: Int*, clusters: TextCluster*, numClusters: Int*, clusterFlags: TextClusterFlags*) -> CairoStatus
     getFontFace: extern(cairo_scaled_font_get_font_face) func -> FontFace
     getFontMatrix: extern(cairo_scaled_font_get_font_matrix) func (fontMatrix: Matrix)
     getCtm: extern(cairo_scaled_font_get_ctm) func (ctm: Matrix)
@@ -262,7 +262,7 @@ FontOptions: cover from cairo_font_options_t* {
     new: extern(cairo_font_options_create) static func -> FontOptions
     copy: extern(cairo_font_options_copy) func -> FontOptions
     destroy: extern(cairo_font_options_destroy) func
-    status: extern(cairo_font_options_status) func -> Status
+    status: extern(cairo_font_options_status) func -> CairoStatus
     merge: extern(cairo_font_options_merge) func (other: FontOptions)
     equal: extern(cairo_font_options_equal) func (other: FontOptions) -> Bool
     hash: extern(cairo_font_options_hash) func -> ULong
@@ -292,7 +292,7 @@ Matrix: cover from cairo_matrix_t* {
     translate: extern(cairo_matrix_translate) func (tx: Double, ty: Double)
     scale: extern(cairo_matrix_scale) func (sx: Double, sy: Double)
     rotate: extern(cairo_matrix_rotate) func (radians: Double)
-    invert: extern(cairo_matrix_invert) func -> Status
+    invert: extern(cairo_matrix_invert) func -> CairoStatus
     multiply: extern(cairo_matrix_multiply) func (a: Matrix, b: Matrix)
     transformDistance: extern(cairo_matrix_transform_distance) func (dx: Double*, dy: Double*)
     transformPoint: extern(cairo_matrix_transform_point) func (x: Double*, y: Double*)
@@ -323,13 +323,13 @@ Surface: cover from cairo_surface_t* {
     finish: extern(cairo_surface_finish) func
     destroy: extern(cairo_surface_destroy) func
     getReferenceCount: extern(cairo_surface_get_reference_count) func -> UInt
-    status: extern(cairo_surface_status) func -> Status
+    status: extern(cairo_surface_status) func -> CairoStatus
     getType: extern(cairo_surface_get_type) func -> SurfaceType
     getContent: extern(cairo_surface_get_content) func -> Content
-    writeToPng: extern(cairo_surface_write_to_png) func (filename: Char*) -> Status
-    writeToPngStream: extern(cairo_surface_write_to_png_stream) func (writeFunc: Func, closure: Void*) -> Status
+    writeToPng: extern(cairo_surface_write_to_png) func (filename: Char*) -> CairoStatus
+    writeToPngStream: extern(cairo_surface_write_to_png_stream) func (writeFunc: Func, closure: Void*) -> CairoStatus
     getUserData: extern(cairo_surface_get_user_data) func (key: UserDataKey) -> Void*
-    setUserData: extern(cairo_surface_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> Status
+    setUserData: extern(cairo_surface_set_user_data) func (key: UserDataKey, userData: Void*, destroy: Func) -> CairoStatus
     getFontOptions: extern(cairo_surface_get_font_options) func (options: FontOptions)
     flush: extern(cairo_surface_flush) func
     markDirty: extern(cairo_surface_mark_dirty) func
