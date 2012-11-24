@@ -2,5 +2,5 @@
 Name: cairo 
 Description: 2D graphics library with support for multiple output devices.
 Pkgs: cairo
-SourcePath: .
+SourcePath: source
 
