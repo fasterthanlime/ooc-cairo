@@ -1,23 +1,13 @@
 use cairo
 import cairo/Cairo
 
+import shared/triangles
+
 main: func {
-    w := 400
-    h := 400
+    (width, height) := (400, 400)
 
-    surface := CairoImageSurface new(CairoFormat ARGB32, w, h) /* 0 = CAIRO_FORMAT_ARGB32 */
+    surface := CairoImageSurface new(CairoFormat ARGB32, width, height)
     cr := CairoContext new(surface)
-
-    cr setSourceRGB(0, 0, 0)
-    cr paint()
-
-    cr setLineWidth(15)
-    cr setSourceRGB(255, 0, 0)
-    cr moveTo(0, -100)
-    cr lineTo(100, 100)
-    cr relLineTo(-200, 0)
-    cr closePath()
-    cr stroke()
-
+    drawTriangles(cr)
     surface writeToPng("test.png")
 }
