@@ -2,217 +2,214 @@ include cairo
 
 use cairo
 
-/* TODO: enums, and they have values */
-CairoStatus: enum /* from cairo_status_t */ {
-    SUCCESS = 0
-
-    NO_MEMORY
-    INVALID_RESTORE
-    INVALID_POP_GROUP
-    NO_CURRENT_POINT
-    INVALID_MATRIX
-    INVALID_STATUS
-    NULL_POINTER
-    INVALID_STRING
-    INVALID_PATH_DATA
-    READ_ERROR
-    WRITE_ERROR
-    SURFACE_FINISHED
-    SURFACE_TYPE_MISMATCH
-    PATTERN_TYPE_MISMATCH
-    INVALID_CONTENT
-    INVALID_FORMAT
-    INVALID_VISUAL
-    FILE_NOT_FOUND
-    INVALID_DASH
-    INVALID_DSC_COMMENT
-    INVALID_INDEX
-    CLIP_NOT_REPRESENTABLE
-    TEMP_FILE_ERROR
-    INVALID_STRIDE
-    FONT_TYPE_MISMATCH
-    USER_FONT_IMMUTABLE
-    USER_FONT_ERROR
-    NEGATIVE_COUNT
-    INVALID_CLUSTERS
-    INVALID_SLANT
-    INVALID_WEIGHT
-    INVALID_SIZE
-    USER_FONT_NOT_IMPLEMENTED
-    DEVICE_TYPE_MISMATCH
-    DEVICE_ERROR
-
-    LAST_STATUS
+CairoStatus: enum {
+    success                = CAIRO_STATUS_SUCCESS
+    noMemory               = CAIRO_STATUS_NO_MEMORY
+    invalidRestore         = CAIRO_STATUS_INVALID_RESTORE
+    invalidPopGroup        = CAIRO_STATUS_INVALID_POP_GROUP
+    noCurrentPoint         = CAIRO_STATUS_NO_CURRENT_POINT
+    invalidMatrix          = CAIRO_STATUS_INVALID_MATRIX
+    invalidStatus          = CAIRO_STATUS_INVALID_STATUS
+    nullPointer            = CAIRO_STATUS_NULL_POINTER
+    invalidString          = CAIRO_STATUS_INVALID_STRING
+    invalidPathData        = CAIRO_STATUS_INVALID_PATH_DATA
+    readError              = CAIRO_STATUS_READ_ERROR
+    writeError             = CAIRO_STATUS_WRITE_ERROR
+    surfaceFinished        = CAIRO_STATUS_SURFACE_FINISHED
+    surfaceTypeMismatch    = CAIRO_STATUS_SURFACE_TYPE_MISMATCH
+    patternTypeMismatch    = CAIRO_STATUS_PATTERN_TYPE_MISMATCH
+    invalidContent         = CAIRO_STATUS_INVALID_CONTENT
+    invalidFormat          = CAIRO_STATUS_INVALID_FORMAT
+    invalidVisual          = CAIRO_STATUS_INVALID_VISUAL
+    fileNotFound           = CAIRO_STATUS_FILE_NOT_FOUND
+    invalidDash            = CAIRO_STATUS_INVALID_DASH
+    invalidDscComment      = CAIRO_STATUS_INVALID_DSC_COMMENT
+    invalidIndex           = CAIRO_STATUS_INVALID_INDEX
+    clipNotRepresentable   = CAIRO_STATUS_CLIP_NOT_REPRESENTABLE
+    tempFileError          = CAIRO_STATUS_TEMP_FILE_ERROR
+    invalidStride          = CAIRO_STATUS_INVALID_STRIDE
+    fontTypeMismatch       = CAIRO_STATUS_FONT_TYPE_MISMATCH
+    userFontImmutable      = CAIRO_STATUS_USER_FONT_IMMUTABLE
+    userFontError          = CAIRO_STATUS_USER_FONT_ERROR
+    negativeCount          = CAIRO_STATUS_NEGATIVE_COUNT
+    invalidClusters        = CAIRO_STATUS_INVALID_CLUSTERS
+    invalidSlant           = CAIRO_STATUS_INVALID_SLANT
+    invalidWeight          = CAIRO_STATUS_INVALID_WEIGHT
+    invalidSize            = CAIRO_STATUS_INVALID_SIZE
+    userFontNotImplemented = CAIRO_STATUS_USER_FONT_NOT_IMPLEMENTED
+    deviceTypeMismatch     = CAIRO_STATUS_DEVICE_TYPE_MISMATCH
+    deviceError            = CAIRO_STATUS_DEVICE_ERROR
+    lastStatus             = CAIRO_STATUS_LAST_STATUS
 }
 
-CairoContent: enum /* from cairo_content_t */ {
-    COLOR: extern(CAIRO_CONTENT_COLOR)
-    ALPHA: extern(CAIRO_CONTENT_ALPHA)
-    COLOR_ALPHA: extern(CAIRO_CONTENT_COLOR_ALPHA)
+CairoContent: enum {
+    color        = CAIRO_CONTENT_COLOR
+    alpha        = CAIRO_CONTENT_ALPHA
+    colorAlpha   = CAIRO_CONTENT_COLOR_ALPHA
 }
 
-CairoSurfaceType: enum /* from cairo_surface_type_t */ {
-    IMAGE
-    PDF
-    PS
-    XLIB
-    XCB
-    GLITZ
-    QUARTZ
-    WIN32
-    BEOS
-    DIRECTFB
-    SVG
-    OS2
-    WIN32_PRINTING
-    QUARTZ_IMAGE
-    SCRIPT
-    QT
-    RECORDING
-    VG
-    GL
-    DRM
-    TEE
-    XML
-    SKIA
-    SUBSURFACE
+CairoSurfaceType: enum {
+    image          = CAIRO_SURFACE_TYPE_IMAGE
+    pdf            = CAIRO_SURFACE_TYPE_PDF
+    ps             = CAIRO_SURFACE_TYPE_PS
+    xlib           = CAIRO_SURFACE_TYPE_XLIB
+    xcb            = CAIRO_SURFACE_TYPE_XCB
+    glitz          = CAIRO_SURFACE_TYPE_GLITZ
+    quartz         = CAIRO_SURFACE_TYPE_QUARTZ
+    win32          = CAIRO_SURFACE_TYPE_WIN32
+    beos           = CAIRO_SURFACE_TYPE_BEOS
+    directfb       = CAIRO_SURFACE_TYPE_DIRECTFB
+    svg            = CAIRO_SURFACE_TYPE_SVG
+    os2            = CAIRO_SURFACE_TYPE_OS2
+    win32Printing  = CAIRO_SURFACE_TYPE_WIN32_PRINTING
+    quartzImage    = CAIRO_SURFACE_TYPE_QUARTZ_IMAGE
+    script         = CAIRO_SURFACE_TYPE_SCRIPT
+    qt             = CAIRO_SURFACE_TYPE_QT
+    recording      = CAIRO_SURFACE_TYPE_RECORDING
+    vg             = CAIRO_SURFACE_TYPE_VG
+    gl             = CAIRO_SURFACE_TYPE_GL
+    drm            = CAIRO_SURFACE_TYPE_DRM
+    tee            = CAIRO_SURFACE_TYPE_TEE
+    xml            = CAIRO_SURFACE_TYPE_XML
+    skia           = CAIRO_SURFACE_TYPE_SKIA
+    subsurface     = CAIRO_SURFACE_TYPE_SUBSURFACE
 }
 
-CairoOperator: enum from Int {
-    CLEAR          = CAIRO_OPERATOR_CLEAR
+CairoOperator: enum {
+    clear         = CAIRO_OPERATOR_CLEAR
 
-    SOURCE         = CAIRO_OPERATOR_SOURCE
-    OVER           = CAIRO_OPERATOR_OVER
-    IN             = CAIRO_OPERATOR_IN
-    OUT            = CAIRO_OPERATOR_OUT
-    ATOP           = CAIRO_OPERATOR_ATOP
+    source        = CAIRO_OPERATOR_SOURCE
+    over          = CAIRO_OPERATOR_OVER
+    in            = CAIRO_OPERATOR_IN
+    out           = CAIRO_OPERATOR_OUT
+    atop          = CAIRO_OPERATOR_ATOP
 
-    DEST           = CAIRO_OPERATOR_DEST
-    DEST_OVER      = CAIRO_OPERATOR_DEST_OVER
-    DEST_IN        = CAIRO_OPERATOR_DEST_IN
-    DEST_OUT       = CAIRO_OPERATOR_DEST_OUT
-    DEST_ATOP      = CAIRO_OPERATOR_DEST_ATOP
+    dest          = CAIRO_OPERATOR_DEST
+    destOver      = CAIRO_OPERATOR_DEST_OVER
+    destIn        = CAIRO_OPERATOR_DEST_IN
+    destOut       = CAIRO_OPERATOR_DEST_OUT
+    destAtop      = CAIRO_OPERATOR_DEST_ATOP
 
-    XOR            = CAIRO_OPERATOR_XOR
-    ADD            = CAIRO_OPERATOR_ADD
-    SATURATE       = CAIRO_OPERATOR_SATURATE
+    xor           = CAIRO_OPERATOR_XOR
+    add           = CAIRO_OPERATOR_ADD
+    saturate      = CAIRO_OPERATOR_SATURATE
 
-    MULTIPLY       = CAIRO_OPERATOR_MULTIPLY
-    SCREEN         = CAIRO_OPERATOR_SCREEN
-    OVERLAY        = CAIRO_OPERATOR_OVERLAY
-    DARKEN         = CAIRO_OPERATOR_DARKEN
-    LIGHTEN        = CAIRO_OPERATOR_LIGHTEN
-    COLOR_DODGE    = CAIRO_OPERATOR_COLOR_DODGE
-    COLOR_BURN     = CAIRO_OPERATOR_COLOR_BURN
-    HARD_LIGHT     = CAIRO_OPERATOR_HARD_LIGHT
-    SOFT_LIGHT     = CAIRO_OPERATOR_SOFT_LIGHT
-    DIFFERENCE     = CAIRO_OPERATOR_DIFFERENCE
-    EXCLUSION      = CAIRO_OPERATOR_EXCLUSION
-    HSL_HUE        = CAIRO_OPERATOR_HSL_HUE
-    HSL_SATURATION = CAIRO_OPERATOR_HSL_SATURATION
-    HSL_COLOR      = CAIRO_OPERATOR_HSL_COLOR
-    HSL_LUMINOSITY = CAIRO_OPERATOR_HSL_LUMINOSITY
+    multiply      = CAIRO_OPERATOR_MULTIPLY
+    screen        = CAIRO_OPERATOR_SCREEN
+    overlay       = CAIRO_OPERATOR_OVERLAY
+    darken        = CAIRO_OPERATOR_DARKEN
+    lighten       = CAIRO_OPERATOR_LIGHTEN
+    colorDodge    = CAIRO_OPERATOR_COLOR_DODGE
+    colorBurn     = CAIRO_OPERATOR_COLOR_BURN
+    hardLight     = CAIRO_OPERATOR_HARD_LIGHT
+    softLight     = CAIRO_OPERATOR_SOFT_LIGHT
+    difference    = CAIRO_OPERATOR_DIFFERENCE
+    exclusion     = CAIRO_OPERATOR_EXCLUSION
+    hslHue        = CAIRO_OPERATOR_HSL_HUE
+    hslSaturation = CAIRO_OPERATOR_HSL_SATURATION
+    hslColor      = CAIRO_OPERATOR_HSL_COLOR
+    hslLuminosity = CAIRO_OPERATOR_HSL_LUMINOSITY
 }
 
-CairoAntialias: enum /* from cairo_antialias_t */ {
-    DEFAULT
-    NONE
-    GRAY
-    SUBPIXEL
+CairoAntialias: enum {
+    default_ = CAIRO_ANTIALIAS_DEFAULT
+    none     = CAIRO_ANTIALIAS_NONE
+    gray     = CAIRO_ANTIALIAS_GRAY
+    subpixel = CAIRO_ANTIALIAS_SUBPIXEL
 }
 
-CairoSubPixelOrder: enum /* from cairo_subpixel_order_t */ {
-    DEFAULT
-    RGB
-    BGR
-    VRGB
-    VBGR
+CairoSubPixelOrder: enum {
+    default_ = CAIRO_SUBPIXEL_ORDER_DEFAULT
+    rgb      = CAIRO_SUBPIXEL_ORDER_RGB
+    bgr      = CAIRO_SUBPIXEL_ORDER_BGR
+    vrgb     = CAIRO_SUBPIXEL_ORDER_VRGB
+    vbgr     = CAIRO_SUBPIXEL_ORDER_VBGR
 }
 
-CairoFillRule: enum /* from cairo_fill_rule_t */ {
-    WINDING
-    EVEN_ODD
+CairoFillRule: enum {
+    winding = CAIRO_FILL_RULE_WINDING
+    evenOdd = CAIRO_FILL_RULE_EVEN_ODD
 }
 
-CairoLineCap: enum /* from cairo_line_cap_t */ {
-    BUTT
-    ROUND
-    SQUARE
+CairoLineCap: enum {
+    butt   = CAIRO_LINE_CAP_BUTT
+    round  = CAIRO_LINE_CAP_ROUND
+    square = CAIRO_LINE_CAP_SQUARE
 }
 
-CairoLineJoin: enum /* from cairo_line_join_t */ {
-    MITER
-    ROUND
-    BEVEL
+CairoLineJoin: enum {
+    miter = CAIRO_LINE_JOIN_MITER
+    round = CAIRO_LINE_JOIN_ROUND
+    bevel = CAIRO_LINE_JOIN_BEVEL
 }
 
-CairoFontSlant: enum /* from cairo_font_slant_t */ {
-    NORMAL
-    ITALIC
-    OBLIQUE
+CairoFontSlant: enum {
+    normal  = CAIRO_FONT_SLANT_NORMAL
+    italic  = CAIRO_FONT_SLANT_ITALIC
+    oblique = CAIRO_FONT_SLANT_OBLIQUE
 }
 
-CairoFontWeight: enum /* from cairo_font_weight_t */ {
-    NORMAL
-    BOLD
+CairoFontWeight: enum {
+    normal = CAIRO_FONT_WEIGHT_NORMAL
+    bold   = CAIRO_FONT_WEIGHT_BOLD
 }
 
-CairoTextClusterFlags: enum /* from cairo_text_cluster_flags_t */ {
-    BACKWARD: extern(CAIRO_TEXT_CLUSTER_FLAG_BACKWARD)
+CairoTextClusterFlags: enum {
+    backward = CAIRO_TEXT_CLUSTER_FLAG_BACKWARD
 }
 
-CairoPatternType: enum /* from cairo_pattern_type_t */ {
-    SOLID
-    SURFACE
-    LINEAR
-    RADIAL
+CairoPatternType: enum {
+    solid   = CAIRO_PATTERN_TYPE_SOLID
+    surface = CAIRO_PATTERN_TYPE_SURFACE
+    linear  = CAIRO_PATTERN_TYPE_LINEAR
+    radial  = CAIRO_PATTERN_TYPE_RADIAL
 }
 
-CairoExtend: enum /* from cairo_extend_t */ {
-    NONE
-    REPEAT
-    REFLECT
-    PAD
+CairoExtend: enum {
+    none    = CAIRO_EXTEND_NONE
+    repeat  = CAIRO_EXTEND_REPEAT
+    reflect = CAIRO_EXTEND_REFLECT
+    pad     = CAIRO_EXTEND_PAD
 }
 
-CairoFilter: enum /* from cairo_filter_t */ {
-    FAST
-    GOOD
-    BEST
-    NEAREST
-    BILINEAR
-    GAUSSIAN
+CairoFilter: enum {
+    fast     = CAIRO_FILTER_FAST
+    good     = CAIRO_FILTER_GOOD
+    best     = CAIRO_FILTER_BEST
+    nearest  = CAIRO_FILTER_NEAREST
+    bilinear = CAIRO_FILTER_BILINEAR
+    gaussian = CAIRO_FILTER_GAUSSIAN
 }
 
-CairoFontType: enum /* from cairo_font_type_t */ {
-    TOY
-    FT
-    WIN32
-    QUARTZ
-    USER
+CairoFontType: enum {
+    toy    = CAIRO_FONT_TYPE_TOY
+    ft     = CAIRO_FONT_TYPE_FT
+    win32  = CAIRO_FONT_TYPE_WIN32
+    quartz = CAIRO_FONT_TYPE_QUARTZ
+    user   = CAIRO_FONT_TYPE_USER
 }
 
-CairoHintStyle: enum /* from cairo_hint_style_t */ {
-    DEFAULT
-    NONE
-    SLIGHT
-    MEDIUM
-    FULL
+CairoHintStyle: enum {
+    default_ = CAIRO_HINT_STYLE_DEFAULT
+    none     = CAIRO_HINT_STYLE_NONE
+    slight   = CAIRO_HINT_STYLE_SLIGHT
+    medium   = CAIRO_HINT_STYLE_MEDIUM
+    full     = CAIRO_HINT_STYLE_FULL
 }
 
-CairoHintMetrics: enum /* from cairo_hint_metrics_t */ {
-    DEFAULT
-    OFF
-    ON
+CairoHintMetrics: enum {
+    default_ = CAIRO_HINT_METRICS_DEFAULT
+    off      = CAIRO_HINT_METRICS_OFF
+    on       = CAIRO_HINT_METRICS_ON
 }
 
-CairoFormat: enum /* cairo_format_t */ {
-    INVALID = -1
-    ARGB32 = 0
-    RGB24 = 1
-    A8 = 2
-    A1 = 3
-    RGB16_565 = 4
+CairoFormat: enum {
+    invalid   = CAIRO_FORMAT_INVALID
+    argb32    = CAIRO_FORMAT_ARGB32
+    rgb24     = CAIRO_FORMAT_RGB24
+    a8        = CAIRO_FORMAT_A8
+    a1        = CAIRO_FORMAT_A1
+    rgb16_565 = CAIRO_FORMAT_RGB16_565
 }
 
 

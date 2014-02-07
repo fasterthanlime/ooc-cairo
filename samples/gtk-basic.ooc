@@ -5,17 +5,19 @@ import gtk/[Gtk, Widget, Window]
 
 import shared/triangles
 
-main: func {
-	win := Window new("cairo GTK example")
-	win setUSize(400, 400) .connect("delete_event", exit)
-	win setAppPaintable(true)
-	win connect("expose-event", ||
-            cr := GdkContext new(win getWindow())
-	    drawTriangles(cr)
-            cr destroy()
-        )
-	win showAll()
+exit: extern func (Int)
 
-	Gtk main()
+main: func {
+    win := Window new("cairo GTK example")
+    win setUSize(400, 400) .connect("delete_event", || exit(0))
+    win setAppPaintable(true)
+    win connect("expose-event", ||
+        cr := GdkContext new(win getWindow())
+        drawTriangles(cr)
+        cr destroy()
+    )
+    win showAll()
+
+    Gtk main()
 }
 
