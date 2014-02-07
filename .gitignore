@@ -2,3 +2,4 @@
 gtk-example
 *_tmp
 .libs
+.sam-cache

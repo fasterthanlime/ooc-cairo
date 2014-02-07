@@ -78,40 +78,40 @@ CairoSurfaceType: enum /* from cairo_surface_type_t */ {
     SUBSURFACE
 }
 
-CairoOperator: enum /* from cairo_operator_t */ {
-    CLEAR
+CairoOperator: enum from Int {
+    CLEAR          = CAIRO_OPERATOR_CLEAR
 
-    SOURCE
-    OVER
-    IN
-    OUT
-    ATOP
+    SOURCE         = CAIRO_OPERATOR_SOURCE
+    OVER           = CAIRO_OPERATOR_OVER
+    IN             = CAIRO_OPERATOR_IN
+    OUT            = CAIRO_OPERATOR_OUT
+    ATOP           = CAIRO_OPERATOR_ATOP
 
-    DEST
-    DEST_OVER
-    DEST_IN
-    DEST_OUT
-    DEST_ATOP
+    DEST           = CAIRO_OPERATOR_DEST
+    DEST_OVER      = CAIRO_OPERATOR_DEST_OVER
+    DEST_IN        = CAIRO_OPERATOR_DEST_IN
+    DEST_OUT       = CAIRO_OPERATOR_DEST_OUT
+    DEST_ATOP      = CAIRO_OPERATOR_DEST_ATOP
 
-    XOR
-    ADD
-    SATURATE
+    XOR            = CAIRO_OPERATOR_XOR
+    ADD            = CAIRO_OPERATOR_ADD
+    SATURATE       = CAIRO_OPERATOR_SATURATE
 
-    MULTIPLY
-    SCREEN
-    OVERLAY
-    DARKEN
-    LIGHTEN
-    COLOR_DODGE
-    COLOR_BURN
-    HARD_LIGHT
-    SOFT_LIGHT
-    DIFFERENCE
-    EXCLUSION
-    HSL_HUE
-    HSL_SATURATION
-    HSL_COLOR
-    HSL_LUMINOSITY
+    MULTIPLY       = CAIRO_OPERATOR_MULTIPLY
+    SCREEN         = CAIRO_OPERATOR_SCREEN
+    OVERLAY        = CAIRO_OPERATOR_OVERLAY
+    DARKEN         = CAIRO_OPERATOR_DARKEN
+    LIGHTEN        = CAIRO_OPERATOR_LIGHTEN
+    COLOR_DODGE    = CAIRO_OPERATOR_COLOR_DODGE
+    COLOR_BURN     = CAIRO_OPERATOR_COLOR_BURN
+    HARD_LIGHT     = CAIRO_OPERATOR_HARD_LIGHT
+    SOFT_LIGHT     = CAIRO_OPERATOR_SOFT_LIGHT
+    DIFFERENCE     = CAIRO_OPERATOR_DIFFERENCE
+    EXCLUSION      = CAIRO_OPERATOR_EXCLUSION
+    HSL_HUE        = CAIRO_OPERATOR_HSL_HUE
+    HSL_SATURATION = CAIRO_OPERATOR_HSL_SATURATION
+    HSL_COLOR      = CAIRO_OPERATOR_HSL_COLOR
+    HSL_LUMINOSITY = CAIRO_OPERATOR_HSL_LUMINOSITY
 }
 
 CairoAntialias: enum /* from cairo_antialias_t */ {
@@ -387,7 +387,7 @@ CairoPattern: cover from cairo_pattern_t* {
     getExtend: extern(cairo_pattern_get_extend) func -> CairoExtend
     setFilter: extern(cairo_pattern_set_filter) func (filter: CairoFilter)
     getFilter: extern(cairo_pattern_get_filter) func -> CairoFilter
-    getRGBa: extern(cairo_pattern_get_rgba) func (red: Double*, green: Double*, blue: Double*, alpha: Double*) -> CairoStatus
+    getRGBA: extern(cairo_pattern_get_rgba) func (red: Double*, green: Double*, blue: Double*, alpha: Double*) -> CairoStatus
     getSurface: extern(cairo_pattern_get_surface) func (surface: CairoSurface*) -> CairoStatus
     getColorStopRGBa: extern(cairo_pattern_get_color_stop_rgba) func (index: Int, offset: Double*, red: Double*, green: Double*, blue: Double*, alpha: Double*) -> CairoStatus
     getColorStopCount: extern(cairo_pattern_get_color_stop_count) func (count: Int*) -> CairoStatus
