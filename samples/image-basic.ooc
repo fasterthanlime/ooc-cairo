@@ -1,5 +1,5 @@
 use cairo
-import cairo/Cairo
+import cairo/Core
 
 import shared/triangles
 

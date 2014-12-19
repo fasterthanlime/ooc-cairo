@@ -1,6 +1,6 @@
 
 use cairo
-import cairo/Cairo
+import cairo/Core
 include math, time
 
 main: func (argc: Int, argv: String*) {

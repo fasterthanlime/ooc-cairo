@@ -1,6 +1,6 @@
 use cairo, gtk
 
-import cairo/[Cairo, GdkCairo]
+import cairo/[Core, GdkCairo]
 import gtk/[Gtk, Widget, Window]
 
 import shared/triangles
